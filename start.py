@@ -1,7 +1,7 @@
 from flask import Flask, Response, request
 from flask_cors import CORS  
 from transformers import pipeline
-import gradio as gr
+
 
 
 app = Flask(__name__)
@@ -10,6 +10,7 @@ host_port = 5000
 
 
 CORS(app, resources={r"/ping": {"origins": "*"}})
+CORS(app, resources={r"/translate": {"origins": "*"}})
 
 @app.route('/')
 def hello():
