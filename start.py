@@ -6,8 +6,9 @@ from transformers import pipeline
 
 app = Flask(__name__)
 host_addr = "0.0.0.0"
-host_port = 5000
-
+#host_port = 5000
+host_port = 9000 # howon_gpu_013 포트 포워딩! => 8261로 연결하면 9000으로 붙게되어있음
+pipe = pipeline("text2text-generation", model="inhee/opus-mt-ko-en-finetuned-ko-to-en5")
 
 CORS(app, resources={r"/ping": {"origins": "*"}})
 CORS(app, resources={r"/translate": {"origins": "*"}})
@@ -33,7 +34,7 @@ def ping():
     return response
 @app.route('/translate', methods=['POST'])
 def translate():
-    pipe = pipeline("text2text-generation", model="inhee/opus-mt-ko-en-finetuned-ko-to-en5")
+    
     input_data = request.get_json()
     response_data = input_data["data"]
     return_response = pipe(response_data)
@@ -44,6 +45,7 @@ def translate():
     return response
 if __name__ == "__main__":
     app.run(debug=True, host=host_addr, port=host_port)
+    #app.run(debug=True, host=host_addr)
 
 
     
