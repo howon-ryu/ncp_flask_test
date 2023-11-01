@@ -7,7 +7,8 @@ from transformers import pipeline
 app = Flask(__name__)
 host_addr = "0.0.0.0"
 #host_port = 5000
-host_port = 9000 # howon_gpu_013 포트 포워딩! => 8261로 연결하면 9000으로 붙게되어있음
+host_port = 9000 # howon_gpu_013 포트 포워딩! => 8261로 연결하면 도커가 9000으로 붙이고 nginx가 9000을 받아서 그래도 gunicorn 의 9000에 연결
+
 pipe = pipeline("text2text-generation", model="inhee/opus-mt-ko-en-finetuned-ko-to-en5")
 
 CORS(app, resources={r"/ping": {"origins": "*"}})
